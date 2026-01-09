@@ -14,7 +14,7 @@ connectDb();
 
 app.use(
   cors({
-   rigin: [
+   origin: [
     "http://localhost:5173",                 
     "https://daily-dish-app.vercel.app"     
   ],
