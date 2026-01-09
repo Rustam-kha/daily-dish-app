@@ -4,17 +4,16 @@ import { CheckCircle } from "lucide-react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-
+import { API_URL } from "../config";
 axios.defaults.withCredentials = true;
 
 const Success = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  
   const clearCart = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/clear-cart");
+      const res = await axios.get(`${API_URL}/api/clear-cart`);
       toast.success(res.data.message, {
         icon: "✅",
         style: { background: "#10b981", color: "#fff" },
@@ -27,11 +26,9 @@ const Success = () => {
   useEffect(() => {
     clearCart();
 
-    
     const timer = setTimeout(() => {
       setLoading(false);
 
-      
       setTimeout(() => {
         navigate("/");
       }, 5000);
@@ -60,12 +57,15 @@ const Success = () => {
             <CheckCircle className="text-white w-12 h-12" />
           </div>
 
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Order Confirmed!</h1>
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">
+            Order Confirmed!
+          </h1>
           <p className="text-gray-600 mb-4">
             Your order has been successfully placed.
           </p>
           <p className="text-gray-700 mb-2">
-             Send your delivery location and screenshot of the payment to this number:
+            Send your delivery location and screenshot of the payment to this
+            number:
           </p>
           <p className="font-semibold text-green-600 text-lg">+923325577359</p>
           <p className="text-gray-500 text-sm mt-4">

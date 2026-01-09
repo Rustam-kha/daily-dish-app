@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-
+import { API_URL } from "../config";
 const VerifyOtp = () => {
   const [otp, setOtp] = useState("");
   const [password, setPassword] = useState("");
@@ -14,7 +14,7 @@ const VerifyOtp = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.put("http://localhost:5000/api/verify-otp", {
+      const res = await axios.put(`${API_URL}/api/verify-otp`, {
         otp,
         newPassword: password,
       });

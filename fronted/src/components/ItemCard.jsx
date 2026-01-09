@@ -11,7 +11,7 @@ import { toast } from "react-hot-toast";
 import { getCart } from "../helper";
 import { setCart } from "../redux/slices/CartSlice";
 import { motion } from "framer-motion";
-
+import { API_URL } from "../config";
 function ItemCard({ name, image, price, quantity, _id, category }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
@@ -23,10 +23,9 @@ function ItemCard({ name, image, price, quantity, _id, category }) {
 
   const removeFromCart = async () => {
     if (!user?._id) return;
-    await axios.delete(
-      `http://localhost:5000/api/remove-from-cart/${user._id}/${_id}`,
-      { withCredentials: true }
-    );
+    await axios.delete(`${API_URL}/api/remove-from-cart/${user._id}/${_id}`, {
+      withCredentials: true,
+    });
     toast.success("Item removed");
     refreshCart();
   };
@@ -72,7 +71,6 @@ function ItemCard({ name, image, price, quantity, _id, category }) {
                  hover:shadow-md transition"
     >
       <div className="flex gap-4 w-full min-w-0">
-
         {/* IMAGE */}
         <div className="relative shrink-0">
           <div className="w-20 h-20 rounded-lg overflow-hidden bg-gray-100">
@@ -96,13 +94,10 @@ function ItemCard({ name, image, price, quantity, _id, category }) {
 
         {/* CONTENT */}
         <div className="flex-1 min-w-0">
-
           {/* TOP ROW */}
           <div className="flex justify-between items-start gap-2">
             <div className="min-w-0">
-              <h3 className="font-semibold text-gray-900 truncate">
-                {name}
-              </h3>
+              <h3 className="font-semibold text-gray-900 truncate">{name}</h3>
 
               <p className="text-sm text-gray-500">
                 Rs. {price} × {quantity}
@@ -122,7 +117,6 @@ function ItemCard({ name, image, price, quantity, _id, category }) {
 
           {/* CONTROLS */}
           <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
-
             {/* QUANTITY */}
             <div className="flex items-center gap-2">
               <button
@@ -136,9 +130,7 @@ function ItemCard({ name, image, price, quantity, _id, category }) {
                 <Minus size={16} />
               </button>
 
-              <span className="w-10 text-center font-semibold">
-                {quantity}
-              </span>
+              <span className="w-10 text-center font-semibold">{quantity}</span>
 
               <button
                 onClick={incrementQuantity}
@@ -160,15 +152,15 @@ function ItemCard({ name, image, price, quantity, _id, category }) {
           </div>
 
           {/* FOOTER */}
-          <div className="mt-3 pt-3 border-t border-gray-100
-                          flex items-center gap-4 text-xs text-gray-500">
+          <div
+            className="mt-3 pt-3 border-t border-gray-100
+                          flex items-center gap-4 text-xs text-gray-500"
+          >
             <div className="flex items-center gap-1">
               <Package size={14} />
               In stock
             </div>
-            <span className="text-green-600 font-medium">
-              Free delivery
-            </span>
+            <span className="text-green-600 font-medium">Free delivery</span>
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { loginUser } from "../redux/slices/AuthSlice.jsx";
 import { toast } from "react-hot-toast";
 import { motion } from "framer-motion";
-
+import { API_URL } from "../config.js";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,11 +32,11 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     if (!validate()) return;
-    
+
     setIsLoading(true);
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/login",
+        `${API_URL}/api/login`,
         { email, password },
         { withCredentials: true }
       );
@@ -56,8 +56,7 @@ const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 via-white to-green-50/50">
       <div className="w-full max-w-2xl flex">
-        
-        <motion.div 
+        <motion.div
           className="w-full md:w-2/3 bg-white p-8 md:p-12 rounded-l-2xl shadow-2xl"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -68,14 +67,17 @@ const Login = () => {
               <div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center">
                 <span className="text-white font-bold text-lg">DD</span>
               </div>
-              <span className="text-2xl font-bold text-green-800">DailyDish</span>
+              <span className="text-2xl font-bold text-green-800">
+                DailyDish
+              </span>
             </div>
             <h1 className="text-3xl font-bold text-gray-900">Welcome Back</h1>
-            <p className="text-gray-600 mt-2">Sign in to continue your culinary journey</p>
+            <p className="text-gray-600 mt-2">
+              Sign in to continue your culinary journey
+            </p>
           </div>
 
           <form onSubmit={handleLogin} noValidate className="space-y-6">
-          
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Email Address
@@ -84,9 +86,10 @@ const Login = () => {
                 <input
                   type="email"
                   className={`w-full px-4 py-3 pl-12 rounded-xl border-2 bg-gray-50/50
-                    ${errors.email 
-                      ? "border-red-500 focus:ring-red-200" 
-                      : "border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-100"
+                    ${
+                      errors.email
+                        ? "border-red-500 focus:ring-red-200"
+                        : "border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-100"
                     } transition-all duration-200`}
                   placeholder="you@example.com"
                   value={email}
@@ -106,7 +109,6 @@ const Login = () => {
               )}
             </div>
 
-          
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Password
@@ -115,9 +117,10 @@ const Login = () => {
                 <input
                   type="password"
                   className={`w-full px-4 py-3 pl-12 rounded-xl border-2 bg-gray-50/50
-                    ${errors.password 
-                      ? "border-red-500 focus:ring-red-200" 
-                      : "border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-100"
+                    ${
+                      errors.password
+                        ? "border-red-500 focus:ring-red-200"
+                        : "border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-100"
                     } transition-all duration-200`}
                   placeholder="••••••••"
                   value={password}
@@ -137,9 +140,7 @@ const Login = () => {
               )}
             </div>
 
-           
             <div className="flex justify-between items-center">
-             
               <Link
                 to="/forgot-password"
                 className="text-sm font-medium text-green-600 hover:text-green-700 hover:underline transition-colors"
@@ -154,9 +155,10 @@ const Login = () => {
               whileHover={{ scale: isLoading ? 1 : 1.02 }}
               whileTap={{ scale: isLoading ? 1 : 0.98 }}
               className={`w-full py-3.5 px-4 rounded-xl font-bold text-white transition-all duration-200
-                ${isLoading 
-                  ? "bg-green-400 cursor-not-allowed" 
-                  : "bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 shadow-lg hover:shadow-green-200"
+                ${
+                  isLoading
+                    ? "bg-green-400 cursor-not-allowed"
+                    : "bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 shadow-lg hover:shadow-green-200"
                 }`}
             >
               {isLoading ? (
@@ -170,18 +172,16 @@ const Login = () => {
             </motion.button>
           </form>
 
-          
           <div className="flex items-center my-8">
             <div className="flex-1 border-t border-gray-200"></div>
             <span className="px-4 text-sm text-gray-400">or</span>
             <div className="flex-1 border-t border-gray-200"></div>
           </div>
 
-          
           <p className="text-center text-gray-600">
             Don't have an account?{" "}
-            <Link 
-              to="/signup" 
+            <Link
+              to="/signup"
               className="font-bold text-green-600 hover:text-green-700 hover:underline transition-colors"
             >
               Create one now
@@ -189,7 +189,7 @@ const Login = () => {
           </p>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="hidden md:flex md:w-1/3 bg-gradient-to-br from-green-600 to-green-800 rounded-r-2xl shadow-2xl p-8 flex-col justify-between"
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -205,7 +205,7 @@ const Login = () => {
                 "🍽️ Chef-curated meals daily",
                 "🚚 Fast & reliable delivery",
                 "🌱 Fresh, quality ingredients",
-                "💰 Exclusive member discounts"
+                "💰 Exclusive member discounts",
               ].map((feature, index) => (
                 <div key={index} className="flex items-center gap-2">
                   <span className="text-yellow-300">✓</span>
@@ -214,12 +214,15 @@ const Login = () => {
               ))}
             </div>
           </div>
-          
+
           <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
             <p className="text-green-100 text-sm italic">
-              "The best meal service I've ever used! Fresh, delicious, and convenient."
+              "The best meal service I've ever used! Fresh, delicious, and
+              convenient."
             </p>
-            <p className="text-yellow-300 text-sm mt-2 font-semibold">- Sarah M.</p>
+            <p className="text-yellow-300 text-sm mt-2 font-semibold">
+              - Sarah M.
+            </p>
           </div>
         </motion.div>
       </div>

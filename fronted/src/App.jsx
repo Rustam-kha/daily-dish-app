@@ -15,22 +15,24 @@ import Shop from './pages/Shop'
 const App = () => {
   return (
     <BrowserRouter>
-     
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/success" element={ <Success />} />
-        {/* <Route path="/success" element={<ProtectedRoute element={ <Success />} />} /> */}
+        {/* <Route path="/success" element={ <Success />} /> */}
+        <Route
+          path="/success"
+          element={<ProtectedRoute element={<Success />} />}
+        />
         <Route path="/*" element={<Error />} />
-        <Route path="/login" element={ <Login/>} />
+        <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgot-password" element={<ResetPassword />} />
         <Route path="/verify-otp" element={<VerifyOtp />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-       <Route path="/shop" element={<Shop/>}/>
-     </Routes>
+        <Route path="/shop" element={<Shop />} />
+      </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
 export default App

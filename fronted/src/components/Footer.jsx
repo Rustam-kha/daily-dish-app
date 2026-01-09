@@ -55,7 +55,6 @@ const Footer = () => {
 
   return (
     <div>
-      {/* Scroll to top button */}
       <AnimatePresence>
         {showScrollTop && (
           <motion.button
@@ -71,27 +70,31 @@ const Footer = () => {
         )}
       </AnimatePresence>
 
-    
-      <motion.footer 
+      <motion.footer
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
         className="bg-gray-900 text-white pt-16 pb-8 px-6 md:px-12 lg:px-16 mt-auto"
       >
         <div className="max-w-7xl mx-auto">
-          <motion.div 
+          <motion.div
             variants={containerVariants}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12"
           >
- 
             <motion.div variants={itemVariants} className="space-y-5">
-              <motion.div whileHover={{ scale: 1.05 }} className="flex items-center space-x-3">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="flex items-center space-x-3"
+              >
                 <ChefHat className="w-8 h-8 text-emerald-400" />
-                <h2 className="text-2xl font-bold text-emerald-400 tracking-tight">DailyDish</h2>
+                <h2 className="text-2xl font-bold text-emerald-400 tracking-tight">
+                  DailyDish
+                </h2>
               </motion.div>
               <p className="text-gray-300 leading-relaxed text-sm">
-                Fresh, delicious meals delivered to your doorstep. We connect you with local chefs 
-                and fresh ingredients for a convenient and exceptional dining experience.
+                Fresh, delicious meals delivered to your doorstep. We connect
+                you with local chefs and fresh ingredients for a convenient and
+                exceptional dining experience.
               </p>
               <div className="flex space-x-4 pt-2">
                 {[Truck, ChefHat, Utensils].map((Icon, index) => (
@@ -107,9 +110,8 @@ const Footer = () => {
               </div>
             </motion.div>
 
-       
             <motion.div variants={itemVariants} className="space-y-5">
-              <motion.h3 
+              <motion.h3
                 initial={{ width: 0 }}
                 whileInView={{ width: "40px" }}
                 viewport={{ once: true }}
@@ -119,7 +121,11 @@ const Footer = () => {
               </motion.h3>
               <ul className="space-y-3">
                 {quickLinks.map((link, index) => (
-                  <motion.li key={index} whileHover={{ x: 5 }} className="overflow-hidden">
+                  <motion.li
+                    key={index}
+                    whileHover={{ x: 5 }}
+                    className="overflow-hidden"
+                  >
                     <motion.a
                       href={link.href}
                       className="flex items-center space-x-3 text-gray-300 hover:text-emerald-400 transition-colors group"
@@ -140,9 +146,8 @@ const Footer = () => {
               </ul>
             </motion.div>
 
-        
             <motion.div variants={itemVariants} className="space-y-5">
-              <motion.h3 
+              <motion.h3
                 initial={{ width: 0 }}
                 whileInView={{ width: "40px" }}
                 viewport={{ once: true }}
@@ -175,7 +180,6 @@ const Footer = () => {
             </motion.div>
           </motion.div>
 
-         
           <motion.div
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
@@ -184,7 +188,6 @@ const Footer = () => {
             className="h-px bg-gradient-to-r from-transparent via-emerald-400/30 to-transparent my-10"
           />
 
-          
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -192,7 +195,8 @@ const Footer = () => {
             className="text-center text-gray-400 text-sm pt-4"
           >
             <p>
-              &copy; {new Date().getFullYear()} DailyDish. All rights reserved. Fresh Food Delivery Service.
+              &copy; {new Date().getFullYear()} DailyDish. All rights reserved.
+              Fresh Food Delivery Service.
             </p>
           </motion.div>
         </div>

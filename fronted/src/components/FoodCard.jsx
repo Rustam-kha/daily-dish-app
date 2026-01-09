@@ -7,6 +7,7 @@ import { setCart } from "../redux/slices/CartSlice";
 import { getCart } from "../helper";
 import toast from "react-hot-toast";
 import { motion } from "framer-motion";
+import { API_URL } from "../config";
 
 const FoodCard = ({
   id,
@@ -30,7 +31,7 @@ const FoodCard = ({
 
     try {
       const { data } = await axios.post(
-        `http://localhost:5000/api/add-to-cart/${user._id}`,
+        `${API_URL}/api/add-to-cart/${user._id}`,
         {
           id,
           image: img,
@@ -89,8 +90,6 @@ const FoodCard = ({
             </span>
           )}
         </div>
-
-       
 
         {/* PRICE */}
         <div className="absolute bottom-3 right-3 bg-green-600 text-white px-4 py-1.5 rounded-lg text-sm font-bold">

@@ -6,26 +6,32 @@ import { FaLinkedin, FaTwitter, FaInstagram, FaWhatsapp } from "react-icons/fa";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { API_URL } from "../config";
 
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [referenceId, setReferenceId] = useState("");
-  
-  const { register, handleSubmit, formState: { errors }, reset } = useForm();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
   };
 
   const staggerContainer = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.1 }
-    }
+      transition: { staggerChildren: 0.1 },
+    },
   };
 
   const onSubmit = async (data) => {
@@ -33,33 +39,33 @@ const Contact = () => {
     setSubmitError("");
     setSubmitSuccess(false);
     setReferenceId("");
-    
+
     try {
-      const response = await axios.post('http://localhost:5000/api/contact', {
+      const response = await axios.post(`${API_URL}/api/contact`, {
         ...data,
-        source: 'website_contact_form'
+        source: "website_contact_form",
       });
-      
+
       if (response.data.success) {
         setSubmitSuccess(true);
         reset();
-        
+
         if (response.data.referenceId) {
           setReferenceId(response.data.referenceId);
         }
-        
+
         setTimeout(() => {
           setSubmitSuccess(false);
-          setReferenceId('');
+          setReferenceId("");
         }, 8000);
       } else {
         setSubmitError(response.data.message || "Failed to send message");
       }
     } catch (error) {
       setSubmitError(
-        error.response?.data?.message || 
-        error.response?.data?.errors?.join(', ') || 
-        "Failed to send message. Please try again later."
+        error.response?.data?.message ||
+          error.response?.data?.errors?.join(", ") ||
+          "Failed to send message. Please try again later."
       );
     } finally {
       setIsSubmitting(false);
@@ -71,57 +77,81 @@ const Contact = () => {
       icon: <FiPhone className="text-2xl" />,
       title: "Call Us",
       details: ["+923325577359"],
-      action: "tel:+923325577359"
+      action: "tel:+923325577359",
     },
     {
       icon: <FiMail className="text-2xl" />,
       title: "Email Us",
       details: ["rustamkhanafridi0332@gmail.com"],
-      action: "mailto:rustamkhanafridi0332@gmail.com"
+      action: "mailto:rustamkhanafridi0332@gmail.com",
     },
     {
       icon: <FiMapPin className="text-2xl" />,
       title: "Visit Us",
       details: ["HMC Road UET Taxila"],
-      action: "https://maps.google.com"
+      action: "https://maps.google.com",
     },
     {
       icon: <FiClock className="text-2xl" />,
       title: "Business Hours",
       details: ["Mon-Fri: 7:00 AM - 10:00 PM", "Sat-Sun: 8:00 AM - 11:00 PM"],
-      action: null
-    }
+      action: null,
+    },
   ];
 
   const socialLinks = [
-    { icon: <FaWhatsapp />, label: "WhatsApp", href: "https://wa.me/15551234567", color: "bg-green-500" },
-    { icon: <FaInstagram />, label: "Instagram", href: "https://instagram.com/dailydish", color: "bg-pink-500" },
-    { icon: <FaTwitter />, label: "Twitter", href: "https://twitter.com/dailydish", color: "bg-blue-400" },
-    { icon: <FaLinkedin />, label: "LinkedIn", href: "https://linkedin.com/company/dailydish", color: "bg-blue-600" }
+    {
+      icon: <FaWhatsapp />,
+      label: "WhatsApp",
+      href: "https://wa.me/15551234567",
+      color: "bg-green-500",
+    },
+    {
+      icon: <FaInstagram />,
+      label: "Instagram",
+      href: "https://instagram.com/dailydish",
+      color: "bg-pink-500",
+    },
+    {
+      icon: <FaTwitter />,
+      label: "Twitter",
+      href: "https://twitter.com/dailydish",
+      color: "bg-blue-400",
+    },
+    {
+      icon: <FaLinkedin />,
+      label: "LinkedIn",
+      href: "https://linkedin.com/company/dailydish",
+      color: "bg-blue-600",
+    },
   ];
 
   const faqs = [
     {
       question: "How quickly do you respond to contact requests?",
-      answer: "We typically respond within 1-2 hours during business hours and within 24 hours maximum."
+      answer:
+        "We typically respond within 1-2 hours during business hours and within 24 hours maximum.",
     },
     {
       question: "Can I modify or cancel my order after contacting?",
-      answer: "Yes, we can modify or cancel orders within 30 minutes of placement. Contact us immediately."
+      answer:
+        "Yes, we can modify or cancel orders within 30 minutes of placement. Contact us immediately.",
     },
     {
       question: "Do you handle dietary restrictions and allergies?",
-      answer: "Absolutely! Our chefs are trained to handle all dietary requirements. Please specify in your message."
+      answer:
+        "Absolutely! Our chefs are trained to handle all dietary requirements. Please specify in your message.",
     },
     {
       question: "Is there customer support available on weekends?",
-      answer: "Yes, our customer support team is available 7 days a week during business hours."
-    }
+      answer:
+        "Yes, our customer support team is available 7 days a week during business hours.",
+    },
   ];
 
   return (
     <>
-      <Navbar/>
+      <Navbar />
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
         <motion.section
           className="relative py-20 bg-gradient-to-r from-green-700 to-green-900 text-white overflow-hidden"
@@ -141,7 +171,8 @@ const Contact = () => {
                 Get in <span className="text-yellow-300">Touch</span>
               </h1>
               <p className="text-xl md:text-2xl text-green-100 mb-8">
-                We're here to serve you better. Reach out for inquiries, support, or just to say hello!
+                We're here to serve you better. Reach out for inquiries,
+                support, or just to say hello!
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <motion.a
@@ -175,10 +206,12 @@ const Contact = () => {
             >
               <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                  Multiple Ways to <span className="text-green-600">Connect</span>
+                  Multiple Ways to{" "}
+                  <span className="text-green-600">Connect</span>
                 </h2>
                 <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-                  Choose your preferred method to reach our dedicated support team
+                  Choose your preferred method to reach our dedicated support
+                  team
                 </p>
               </div>
 
@@ -194,10 +227,14 @@ const Contact = () => {
                       <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4 text-green-600 group-hover:bg-green-600 group-hover:text-white transition-colors duration-300">
                         {item.icon}
                       </div>
-                      <h3 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
+                      <h3 className="text-xl font-bold text-gray-900 mb-3">
+                        {item.title}
+                      </h3>
                       <div className="space-y-1">
                         {item.details.map((detail, i) => (
-                          <p key={i} className="text-gray-600">{detail}</p>
+                          <p key={i} className="text-gray-600">
+                            {detail}
+                          </p>
                         ))}
                       </div>
                       {item.action && (
@@ -230,7 +267,8 @@ const Contact = () => {
                   Send Us a <span className="text-green-600">Message</span>
                 </h2>
                 <p className="text-gray-600 mb-8">
-                  Fill out the form below and we'll get back to you within 24 hours
+                  Fill out the form below and we'll get back to you within 24
+                  hours
                 </p>
 
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -241,14 +279,20 @@ const Contact = () => {
                       </label>
                       <input
                         type="text"
-                        {...register("firstName", { required: "First name is required" })}
+                        {...register("firstName", {
+                          required: "First name is required",
+                        })}
                         className={`w-full px-4 py-3 rounded-lg border ${
-                          errors.firstName ? "border-red-500" : "border-gray-300"
+                          errors.firstName
+                            ? "border-red-500"
+                            : "border-gray-300"
                         } focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all`}
                         placeholder="John"
                       />
                       {errors.firstName && (
-                        <p className="mt-1 text-sm text-red-600">{errors.firstName.message}</p>
+                        <p className="mt-1 text-sm text-red-600">
+                          {errors.firstName.message}
+                        </p>
                       )}
                     </div>
 
@@ -258,14 +302,18 @@ const Contact = () => {
                       </label>
                       <input
                         type="text"
-                        {...register("lastName", { required: "Last name is required" })}
+                        {...register("lastName", {
+                          required: "Last name is required",
+                        })}
                         className={`w-full px-4 py-3 rounded-lg border ${
                           errors.lastName ? "border-red-500" : "border-gray-300"
                         } focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all`}
                         placeholder="Doe"
                       />
                       {errors.lastName && (
-                        <p className="mt-1 text-sm text-red-600">{errors.lastName.message}</p>
+                        <p className="mt-1 text-sm text-red-600">
+                          {errors.lastName.message}
+                        </p>
                       )}
                     </div>
                   </div>
@@ -280,8 +328,8 @@ const Contact = () => {
                         required: "Email is required",
                         pattern: {
                           value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                          message: "Invalid email address"
-                        }
+                          message: "Invalid email address",
+                        },
                       })}
                       className={`w-full px-4 py-3 rounded-lg border ${
                         errors.email ? "border-red-500" : "border-gray-300"
@@ -289,7 +337,9 @@ const Contact = () => {
                       placeholder="john@example.com"
                     />
                     {errors.email && (
-                      <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
+                      <p className="mt-1 text-sm text-red-600">
+                        {errors.email.message}
+                      </p>
                     )}
                   </div>
 
@@ -302,8 +352,8 @@ const Contact = () => {
                       {...register("phone", {
                         pattern: {
                           value: /^[\+]?[1-9][\d\s\-\(\)]{8,}$/,
-                          message: "Invalid phone number"
-                        }
+                          message: "Invalid phone number",
+                        },
                       })}
                       className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
                       placeholder="+1 (555) 123-4567"
@@ -315,7 +365,9 @@ const Contact = () => {
                       Subject *
                     </label>
                     <select
-                      {...register("subject", { required: "Please select a subject" })}
+                      {...register("subject", {
+                        required: "Please select a subject",
+                      })}
                       className={`w-full px-4 py-3 rounded-lg border ${
                         errors.subject ? "border-red-500" : "border-gray-300"
                       } focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all`}
@@ -329,7 +381,9 @@ const Contact = () => {
                       <option value="career">Career Opportunity</option>
                     </select>
                     {errors.subject && (
-                      <p className="mt-1 text-sm text-red-600">{errors.subject.message}</p>
+                      <p className="mt-1 text-sm text-red-600">
+                        {errors.subject.message}
+                      </p>
                     )}
                   </div>
 
@@ -340,7 +394,10 @@ const Contact = () => {
                     <textarea
                       {...register("message", {
                         required: "Message is required",
-                        minLength: { value: 20, message: "Minimum 20 characters required" }
+                        minLength: {
+                          value: 20,
+                          message: "Minimum 20 characters required",
+                        },
                       })}
                       rows={5}
                       className={`w-full px-4 py-3 rounded-lg border ${
@@ -349,7 +406,9 @@ const Contact = () => {
                       placeholder="Tell us how we can help you..."
                     />
                     {errors.message && (
-                      <p className="mt-1 text-sm text-red-600">{errors.message.message}</p>
+                      <p className="mt-1 text-sm text-red-600">
+                        {errors.message.message}
+                      </p>
                     )}
                   </div>
 
@@ -357,7 +416,9 @@ const Contact = () => {
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                       <div className="flex items-center text-green-800">
                         <FiCheck className="w-5 h-5 mr-2" />
-                        <span className="font-medium">Message sent successfully!</span>
+                        <span className="font-medium">
+                          Message sent successfully!
+                        </span>
                       </div>
                       <p className="text-green-600 text-sm mt-1">
                         We'll get back to you within 24 hours.
@@ -374,7 +435,9 @@ const Contact = () => {
                     <div className="bg-red-50 border border-red-200 rounded-lg p-4">
                       <div className="flex items-center text-red-800">
                         <FiSend className="w-5 h-5 mr-2" />
-                        <span className="font-medium">Error sending message</span>
+                        <span className="font-medium">
+                          Error sending message
+                        </span>
                       </div>
                       <p className="text-red-600 text-sm mt-1">{submitError}</p>
                     </div>
@@ -433,7 +496,8 @@ const Contact = () => {
                   </div>
                   <div className="p-6">
                     <p className="text-gray-600 text-sm">
-                      Visit our flagship store or schedule a meeting with our team
+                      Visit our flagship store or schedule a meeting with our
+                      team
                     </p>
                   </div>
                 </motion.div>
@@ -446,7 +510,8 @@ const Contact = () => {
                   className="bg-white rounded-2xl shadow-xl p-6"
                 >
                   <h3 className="text-xl font-bold text-gray-900 mb-6">
-                    Connect on <span className="text-green-600">Social Media</span>
+                    Connect on{" "}
+                    <span className="text-green-600">Social Media</span>
                   </h3>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {socialLinks.map((social, index) => (
@@ -460,7 +525,9 @@ const Contact = () => {
                         whileTap={{ scale: 0.95 }}
                       >
                         <div className="text-2xl mb-2">{social.icon}</div>
-                        <span className="text-sm font-medium">{social.label}</span>
+                        <span className="text-sm font-medium">
+                          {social.label}
+                        </span>
                       </motion.a>
                     ))}
                   </div>
@@ -480,7 +547,8 @@ const Contact = () => {
             >
               <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                  Frequently Asked <span className="text-green-600">Questions</span>
+                  Frequently Asked{" "}
+                  <span className="text-green-600">Questions</span>
                 </h2>
                 <p className="text-gray-600 text-lg max-w-2xl mx-auto">
                   Quick answers to common questions
@@ -523,9 +591,21 @@ const Contact = () => {
 
             <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
               {[
-                { name: "Ahmad Khan", role: "Customer Support Lead", email: "ahmad@dailydish.com" },
-                { name: "Ali Khan", role: "Order Specialist", email: "ali@dailydish.com" },
-                { name: "Muhammad Bilal", role: "Nutrition Consultant", email: "bilal@dailydish.com" }
+                {
+                  name: "Ahmad Khan",
+                  role: "Customer Support Lead",
+                  email: "ahmad@dailydish.com",
+                },
+                {
+                  name: "Ali Khan",
+                  role: "Order Specialist",
+                  email: "ali@dailydish.com",
+                },
+                {
+                  name: "Muhammad Bilal",
+                  role: "Nutrition Consultant",
+                  email: "bilal@dailydish.com",
+                },
               ].map((member, index) => (
                 <motion.div
                   key={index}
@@ -537,10 +617,17 @@ const Contact = () => {
                   whileHover={{ y: -5 }}
                 >
                   <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-2xl font-bold">
-                    {member.name.split(' ').map(n => n[0]).join('')}
+                    {member.name
+                      .split(" ")
+                      .map((n) => n[0])
+                      .join("")}
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-1">{member.name}</h3>
-                  <p className="text-green-600 font-medium mb-4">{member.role}</p>
+                  <h3 className="text-xl font-bold text-gray-900 mb-1">
+                    {member.name}
+                  </h3>
+                  <p className="text-green-600 font-medium mb-4">
+                    {member.role}
+                  </p>
                   <a
                     href={`mailto:${member.email}`}
                     className="text-gray-600 hover:text-green-600 text-sm font-medium transition-colors"
@@ -586,13 +673,14 @@ const Contact = () => {
                 </motion.a>
               </div>
               <p className="mt-8 text-green-200 text-sm">
-                Average response time: <span className="font-bold">under 2 hours</span>
+                Average response time:{" "}
+                <span className="font-bold">under 2 hours</span>
               </p>
             </motion.div>
           </div>
         </section>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 };

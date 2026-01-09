@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
-
+import { API_URL } from "../config";
 axios.defaults.withCredentials = true;
 
 const Cart = ({ showCart, setShowCart }) => {
@@ -15,16 +15,18 @@ const Cart = ({ showCart, setShowCart }) => {
   const navigate = useNavigate();
 
   const totalQty = cartItems.reduce((total, item) => total + item.quantity, 0);
-  const totalPrice = cartItems.reduce((total, item) => total + item.quantity * item.price, 0);
-  
-  // Calculate delivery (free above Rs. 500)
+  const totalPrice = cartItems.reduce(
+    (total, item) => total + item.quantity * item.price,
+    0
+  );
+
   const deliveryCharge = totalPrice > 500 ? 0 : 100;
   const tax = totalPrice * 0.05;
   const grandTotal = totalPrice + deliveryCharge + tax;
 
   const checkout = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/checkout", {
+      const res = await axios.get(`${API_URL}/api/checkout`, {
         withCredentials: true,
       });
       window.location.href = res.data.url;
@@ -35,11 +37,9 @@ const Cart = ({ showCart, setShowCart }) => {
 
   return (
     <>
-      {/* CART PANEL */}
       <AnimatePresence>
         {showCart && (
           <>
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -48,7 +48,6 @@ const Cart = ({ showCart, setShowCart }) => {
               className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
             />
 
-            {/* Cart Panel */}
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
@@ -57,7 +56,6 @@ const Cart = ({ showCart, setShowCart }) => {
               className="fixed right-0 top-0 w-full sm:w-96 h-full bg-white z-50 
                 shadow-2xl flex flex-col"
             >
-              {/* Header */}
               <div className="bg-gradient-to-r from-green-600 to-green-700 p-6 text-white">
                 <div className="flex justify-between items-center">
                   <div className="flex items-center gap-3">
@@ -67,7 +65,8 @@ const Cart = ({ showCart, setShowCart }) => {
                     <div>
                       <h2 className="text-xl font-bold">My Order</h2>
                       <p className="text-green-100 text-sm">
-                        {cartItems.length} item{cartItems.length !== 1 ? 's' : ''} in cart
+                        {cartItems.length} item
+                        {cartItems.length !== 1 ? "s" : ""} in cart
                       </p>
                     </div>
                   </div>
@@ -81,15 +80,9 @@ const Cart = ({ showCart, setShowCart }) => {
                 </div>
               </div>
 
-              {/* Cart Items */}
               <div className="flex-1 overflow-y-auto p-4 space-y-4">
                 {cartItems.length > 0 ? (
-                  cartItems.map((food) => (
-                    <ItemCard
-                      key={food._id}
-                      {...food}
-                    />
-                  ))
+                  cartItems.map((food) => <ItemCard key={food._id} {...food} />)
                 ) : (
                   <div className="h-full flex flex-col items-center justify-center text-center py-12 px-4">
                     <div className="w-24 h-24 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center mb-6">
@@ -116,13 +109,12 @@ const Cart = ({ showCart, setShowCart }) => {
                 )}
               </div>
 
-              {/* Footer - Order Summary */}
               {cartItems.length > 0 && (
                 <div className="border-t border-gray-100 bg-gray-50 p-6">
                   <h3 className="font-bold text-lg text-gray-800 mb-4">
                     Order Summary
                   </h3>
-                  
+
                   <div className="space-y-3 mb-6">
                     <div className="flex justify-between text-gray-600">
                       <span>Subtotal</span>
@@ -130,8 +122,16 @@ const Cart = ({ showCart, setShowCart }) => {
                     </div>
                     <div className="flex justify-between text-gray-600">
                       <span>Delivery</span>
-                      <span className={deliveryCharge === 0 ? "text-green-600 font-semibold" : ""}>
-                        {deliveryCharge === 0 ? "FREE" : `Rs. ${deliveryCharge.toFixed(2)}`}
+                      <span
+                        className={
+                          deliveryCharge === 0
+                            ? "text-green-600 font-semibold"
+                            : ""
+                        }
+                      >
+                        {deliveryCharge === 0
+                          ? "FREE"
+                          : `Rs. ${deliveryCharge.toFixed(2)}`}
                       </span>
                     </div>
                     <div className="flex justify-between text-gray-600">
@@ -161,9 +161,17 @@ const Cart = ({ showCart, setShowCart }) => {
 
                   <p className="text-center text-sm text-gray-500 mt-4">
                     {totalPrice > 500 ? (
-                      <span className="text-green-600 font-medium">🎉 You've unlocked FREE delivery!</span>
+                      <span className="text-green-600 font-medium">
+                        🎉 You've unlocked FREE delivery!
+                      </span>
                     ) : (
-                      <span>Add <span className="font-medium">Rs. {(501 - totalPrice).toFixed(2)}</span> more for FREE delivery</span>
+                      <span>
+                        Add{" "}
+                        <span className="font-medium">
+                          Rs. {(501 - totalPrice).toFixed(2)}
+                        </span>{" "}
+                        more for FREE delivery
+                      </span>
                     )}
                   </p>
                 </div>
@@ -173,7 +181,6 @@ const Cart = ({ showCart, setShowCart }) => {
         )}
       </AnimatePresence>
 
-      {/* FLOATING CART BUTTON - Only shows when cart is closed */}
       {!showCart && (
         <motion.button
           initial={{ scale: 0, opacity: 0 }}
@@ -183,16 +190,28 @@ const Cart = ({ showCart, setShowCart }) => {
           onClick={() => setShowCart(true)}
           className={`fixed bottom-6 right-6 z-30 w-16 h-16 rounded-full
             flex items-center justify-center shadow-2xl transition-all duration-300
-            ${totalQty > 0 
-              ? "bg-gradient-to-r from-green-600 to-green-700" 
-              : "bg-gradient-to-r from-gray-700 to-gray-800"
+            ${
+              totalQty > 0
+                ? "bg-gradient-to-r from-green-600 to-green-700"
+                : "bg-gradient-to-r from-gray-700 to-gray-800"
             }`}
         >
           <div className="relative">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-7 w-7 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+              />
             </svg>
-            
+
             {totalQty > 0 && (
               <motion.span
                 initial={{ scale: 0 }}

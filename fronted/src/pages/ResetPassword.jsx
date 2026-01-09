@@ -3,7 +3,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-
+import { API_URL } from "../config";
 const ResetPassword = () => {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -18,10 +18,7 @@ const ResetPassword = () => {
 
     setIsLoading(true);
     try {
-      const res = await axios.put(
-        "http://localhost:5000/api/reset-password",
-        { email }
-      );
+      const res = await axios.put(`${API_URL}/api/reset-password`, { email });
 
       if (res.data.success) {
         toast.success(res.data.message);
@@ -37,13 +34,12 @@ const ResetPassword = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 via-white to-green-50/50">
       <div className="w-full max-w-md">
-        <motion.div 
+        <motion.div
           className="bg-white rounded-2xl shadow-2xl p-8 md:p-10"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-       
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-100 to-green-200 rounded-full mb-4">
               <span className="text-3xl">🔐</span>
@@ -55,7 +51,6 @@ const ResetPassword = () => {
           </div>
 
           <form onSubmit={handleResetPassword} className="space-y-6">
-           
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Email Address
@@ -80,16 +75,16 @@ const ResetPassword = () => {
               </p>
             </div>
 
-           
             <motion.button
               type="submit"
               disabled={isLoading}
               whileHover={{ scale: isLoading ? 1 : 1.02 }}
               whileTap={{ scale: isLoading ? 1 : 0.98 }}
               className={`w-full py-3.5 px-4 rounded-xl font-bold text-white transition-all duration-200
-                ${isLoading 
-                  ? "bg-green-400 cursor-not-allowed" 
-                  : "bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 shadow-lg hover:shadow-green-200"
+                ${
+                  isLoading
+                    ? "bg-green-400 cursor-not-allowed"
+                    : "bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 shadow-lg hover:shadow-green-200"
                 }`}
             >
               {isLoading ? (
@@ -115,10 +110,10 @@ const ResetPassword = () => {
             </Link>
           </div>
 
-      
           <div className="mt-6 p-4 bg-green-50 rounded-lg">
             <p className="text-sm text-green-800 text-center">
-              <span className="font-semibold">Note:</span> Check your spam folder if you don't receive the email within a few minutes
+              <span className="font-semibold">Note:</span> Check your spam
+              folder if you don't receive the email within a few minutes
             </p>
           </div>
         </motion.div>

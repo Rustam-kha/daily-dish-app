@@ -11,7 +11,7 @@ import { setCart } from "../redux/slices/CartSlice";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { getCart } from "../helper";
-
+import { API_URL } from "../config";
 axios.defaults.withCredentials = true;
 
 const FoodItems = () => {
@@ -23,7 +23,6 @@ const FoodItems = () => {
   const [viewMode, setViewMode] = useState("grid");
   const [sortBy, setSortBy] = useState("default");
 
-  /* ---------------- ADD TO CART HANDLER ---------------- */
   const handleAddToCart = async (food) => {
     if (!user?._id) {
       toast.error("Please login to add items to cart");
@@ -32,7 +31,7 @@ const FoodItems = () => {
 
     try {
       const { data } = await axios.post(
-        `http://localhost:5000/api/add-to-cart/${user._id}`,
+        `${API_URL}/api/add-to-cart/${user._id}`,
         {
           id: food.id,
           image: food.img,
@@ -44,8 +43,7 @@ const FoodItems = () => {
       );
 
       toast.success(data.message);
-      
-      // Update cart in Redux
+
       const cartData = await getCart(user);
       dispatch(setCart(cartData.cartItems));
     } catch (error) {
@@ -54,11 +52,9 @@ const FoodItems = () => {
     }
   };
 
-  /* ---------------- FILTER + SORT ---------------- */
   const foods = useMemo(() => {
     let data = FoodData.filter((food) => {
-      const matchCategory =
-        category === "All" || food.category === category;
+      const matchCategory = category === "All" || food.category === category;
       const matchSearch = food.name
         .toLowerCase()
         .includes(search.toLowerCase());
@@ -81,7 +77,6 @@ const FoodItems = () => {
     return data;
   }, [category, search, sortBy]);
 
-  /* ---------------- HANDLERS ---------------- */
   const clearSearch = () => dispatch(setSearch(""));
   const resetFilters = () => {
     dispatch(setSearch(""));
@@ -89,10 +84,10 @@ const FoodItems = () => {
     setSortBy("default");
   };
 
-  // Image error handler
   const handleImageError = (e) => {
-    e.target.src = "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=400&fit=crop";
-    e.target.onerror = null; // Prevent infinite loop
+    e.target.src =
+      "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=400&fit=crop";
+    e.target.onerror = null;
   };
 
   return (
@@ -101,21 +96,20 @@ const FoodItems = () => {
 
       <section className="min-h-screen bg-gray-50 px-4 md:px-8 lg:px-12 py-10">
         <div className="max-w-7xl mx-auto">
-          {/* HEADER */}
           <div className="mb-8">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
               <div>
                 <h2 className="text-3xl font-bold text-gray-900">
-                  Discover <span className="text-green-600">Delicious</span> Foods
+                  Discover <span className="text-green-600">Delicious</span>{" "}
+                  Foods
                 </h2>
                 <p className="text-gray-600 mt-1">
-                  {foods.length} {foods.length === 1 ? 'item' : 'items'} available
+                  {foods.length} {foods.length === 1 ? "item" : "items"}{" "}
+                  available
                 </p>
               </div>
 
-              {/* CONTROLS */}
               <div className="flex flex-wrap items-center gap-4">
-                {/* SORT */}
                 <div className="relative">
                   <select
                     value={sortBy}
@@ -130,7 +124,6 @@ const FoodItems = () => {
                   <Filter className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
                 </div>
 
-                {/* VIEW TOGGLE */}
                 <div className="flex bg-gray-100 rounded-lg p-1">
                   <button
                     onClick={() => setViewMode("grid")}
@@ -158,7 +151,6 @@ const FoodItems = () => {
               </div>
             </div>
 
-            {/* SEARCH INDICATOR */}
             {search && (
               <motion.div
                 initial={{ opacity: 0, y: -8 }}
@@ -182,7 +174,6 @@ const FoodItems = () => {
             )}
           </div>
 
-          {/* FOOD LIST */}
           <AnimatePresence mode="wait">
             {foods.length ? (
               <motion.div
@@ -194,7 +185,6 @@ const FoodItems = () => {
                 }
               >
                 {viewMode === "grid" ? (
-                  // GRID VIEW - Uses FoodCard component
                   foods.map((food, i) => (
                     <motion.div
                       key={food.id}
@@ -208,7 +198,6 @@ const FoodItems = () => {
                     </motion.div>
                   ))
                 ) : (
-                  // HORIZONTAL LIST VIEW - With direct add to cart
                   <div className="space-y-4">
                     {foods.map((food, i) => (
                       <motion.div
@@ -221,7 +210,6 @@ const FoodItems = () => {
                         className="w-full"
                       >
                         <div className="flex gap-6 bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg border border-gray-100 transition-all duration-300 group">
-                          {/* Image with fallback */}
                           <div className="flex-shrink-0 relative">
                             <div className="w-32 h-32 rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
                               <img
@@ -231,14 +219,13 @@ const FoodItems = () => {
                                 onError={handleImageError}
                                 loading="lazy"
                               />
-                              {/* Fallback overlay */}
+
                               <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/10">
                                 <Utensils className="w-8 h-8 text-white/30" />
                               </div>
                             </div>
                           </div>
-                          
-                          {/* Content */}
+
                           <div className="flex-1 min-w-0">
                             <div className="flex justify-between items-start mb-3">
                               <div className="flex-1">
@@ -247,21 +234,27 @@ const FoodItems = () => {
                                     {food.category}
                                   </span>
                                 </div>
-                                <h3 className="text-xl font-bold text-gray-900 mb-1">{food.name}</h3>
-                                <p className="text-gray-600 text-sm mb-3 line-clamp-2">{food.desc}</p>
+                                <h3 className="text-xl font-bold text-gray-900 mb-1">
+                                  {food.name}
+                                </h3>
+                                <p className="text-gray-600 text-sm mb-3 line-clamp-2">
+                                  {food.desc}
+                                </p>
                               </div>
-                              
-                              {/* Price & Rating */}
+
                               <div className="text-right ml-4">
-                                <div className="text-2xl font-bold text-green-600 mb-2">Rs. {food.price}</div>
+                                <div className="text-2xl font-bold text-green-600 mb-2">
+                                  Rs. {food.price}
+                                </div>
                                 <div className="flex items-center gap-1 justify-end">
                                   <span className="text-yellow-500">★</span>
-                                  <span className="font-semibold text-gray-700">{food.rating}</span>
+                                  <span className="font-semibold text-gray-700">
+                                    {food.rating}
+                                  </span>
                                 </div>
                               </div>
                             </div>
-                            
-                            {/* Actions - Add to Cart button */}
+
                             <div className="flex items-center justify-between">
                               <motion.button
                                 whileHover={{ scale: 1.05 }}
@@ -271,9 +264,12 @@ const FoodItems = () => {
                               >
                                 Add to Cart
                               </motion.button>
-                              
+
                               <div className="text-sm text-gray-500">
-                                <span className="text-green-600 font-medium">🚚 Free delivery</span> • 30 min
+                                <span className="text-green-600 font-medium">
+                                  🚚 Free delivery
+                                </span>{" "}
+                                • 30 min
                               </div>
                             </div>
                           </div>
@@ -296,7 +292,7 @@ const FoodItems = () => {
                   No items found
                 </h3>
                 <p className="text-gray-500 max-w-md mx-auto mb-6">
-                  {search 
+                  {search
                     ? `No results found for "${search}". Try a different search term.`
                     : "Try adjusting your filters or browse all categories."}
                 </p>

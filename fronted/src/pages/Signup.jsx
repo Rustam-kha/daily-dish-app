@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { motion } from "framer-motion";
-
+import { API_URL } from "../config";
 const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -17,9 +17,11 @@ const Signup = () => {
     const newErrors = {};
     if (!name.trim()) newErrors.name = "Name is required";
     if (!email.trim()) newErrors.email = "Email is required";
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) newErrors.email = "Enter a valid email";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+      newErrors.email = "Enter a valid email";
     if (!password.trim()) newErrors.password = "Password is required";
-    else if (password.length < 6) newErrors.password = "Password must be at least 6 characters";
+    else if (password.length < 6)
+      newErrors.password = "Password must be at least 6 characters";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -27,10 +29,10 @@ const Signup = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
     if (!validate()) return;
-    
+
     setIsLoading(true);
     try {
-      const res = await axios.post("http://localhost:5000/api/signup", {
+      const res = await axios.post(`${API_URL}/api/signup`, {
         name,
         email,
         password,
@@ -51,7 +53,7 @@ const Signup = () => {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 via-white to-green-50/50">
       <div className="w-full max-w-4xl">
         {/* Header */}
-        <motion.div 
+        <motion.div
           className="text-center mb-8"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -63,14 +65,18 @@ const Signup = () => {
             </div>
             <span className="text-3xl font-bold text-green-800">DailyDish</span>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900">Join Our Community</h1>
-          <p className="text-gray-600 mt-2">Start your delicious journey with us</p>
+          <h1 className="text-3xl font-bold text-gray-900">
+            Join Our Community
+          </h1>
+          <p className="text-gray-600 mt-2">
+            Start your delicious journey with us
+          </p>
         </motion.div>
 
         <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
           <div className="md:flex">
             {/* Left side - Form */}
-            <motion.div 
+            <motion.div
               className="md:w-2/3 p-8 md:p-10"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -86,9 +92,10 @@ const Signup = () => {
                     <input
                       type="text"
                       className={`w-full px-4 py-3 pl-12 rounded-xl border-2 bg-gray-50/50
-                        ${errors.name 
-                          ? "border-red-500 focus:ring-red-200" 
-                          : "border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-100"
+                        ${
+                          errors.name
+                            ? "border-red-500 focus:ring-red-200"
+                            : "border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-100"
                         } transition-all duration-200`}
                       placeholder="John Doe"
                       value={name}
@@ -117,9 +124,10 @@ const Signup = () => {
                     <input
                       type="email"
                       className={`w-full px-4 py-3 pl-12 rounded-xl border-2 bg-gray-50/50
-                        ${errors.email 
-                          ? "border-red-500 focus:ring-red-200" 
-                          : "border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-100"
+                        ${
+                          errors.email
+                            ? "border-red-500 focus:ring-red-200"
+                            : "border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-100"
                         } transition-all duration-200`}
                       placeholder="you@example.com"
                       value={email}
@@ -148,9 +156,10 @@ const Signup = () => {
                     <input
                       type="password"
                       className={`w-full px-4 py-3 pl-12 rounded-xl border-2 bg-gray-50/50
-                        ${errors.password 
-                          ? "border-red-500 focus:ring-red-200" 
-                          : "border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-100"
+                        ${
+                          errors.password
+                            ? "border-red-500 focus:ring-red-200"
+                            : "border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-100"
                         } transition-all duration-200`}
                       placeholder="Create a strong password"
                       value={password}
@@ -168,21 +177,37 @@ const Signup = () => {
                       <span>⚠️</span> {errors.password}
                     </p>
                   )}
-                  
+
                   {/* Password Requirements */}
                   <div className="mt-3 p-3 bg-gray-50 rounded-lg">
-                    <p className="text-sm font-medium text-gray-700 mb-2">Password Requirements:</p>
+                    <p className="text-sm font-medium text-gray-700 mb-2">
+                      Password Requirements:
+                    </p>
                     <div className="space-y-1">
                       {[
-                        { text: "At least 6 characters", met: password.length >= 6 },
-                        { text: "Contains letters", met: /[a-zA-Z]/.test(password) },
-                        { text: "Contains numbers", met: /\d/.test(password) }
+                        {
+                          text: "At least 6 characters",
+                          met: password.length >= 6,
+                        },
+                        {
+                          text: "Contains letters",
+                          met: /[a-zA-Z]/.test(password),
+                        },
+                        { text: "Contains numbers", met: /\d/.test(password) },
                       ].map((req, index) => (
                         <div key={index} className="flex items-center gap-2">
-                          <span className={`text-sm ${req.met ? 'text-green-600' : 'text-gray-400'}`}>
-                            {req.met ? '✓' : '○'}
+                          <span
+                            className={`text-sm ${
+                              req.met ? "text-green-600" : "text-gray-400"
+                            }`}
+                          >
+                            {req.met ? "✓" : "○"}
                           </span>
-                          <span className={`text-xs ${req.met ? 'text-green-600' : 'text-gray-500'}`}>
+                          <span
+                            className={`text-xs ${
+                              req.met ? "text-green-600" : "text-gray-500"
+                            }`}
+                          >
                             {req.text}
                           </span>
                         </div>
@@ -201,9 +226,13 @@ const Signup = () => {
                   />
                   <label htmlFor="terms" className="text-sm text-gray-600">
                     I agree to the{" "}
-                    <button className="text-green-600 hover:underline">Terms of Service</button>{" "}
+                    <button className="text-green-600 hover:underline">
+                      Terms of Service
+                    </button>{" "}
                     and{" "}
-                    <button className="text-green-600 hover:underline">Privacy Policy</button>
+                    <button className="text-green-600 hover:underline">
+                      Privacy Policy
+                    </button>
                   </label>
                 </div>
 
@@ -214,9 +243,10 @@ const Signup = () => {
                   whileHover={{ scale: isLoading ? 1 : 1.02 }}
                   whileTap={{ scale: isLoading ? 1 : 0.98 }}
                   className={`w-full py-3.5 px-4 rounded-xl font-bold text-white transition-all duration-200
-                    ${isLoading 
-                      ? "bg-green-400 cursor-not-allowed" 
-                      : "bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 shadow-lg hover:shadow-green-200"
+                    ${
+                      isLoading
+                        ? "bg-green-400 cursor-not-allowed"
+                        : "bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 shadow-lg hover:shadow-green-200"
                     }`}
                 >
                   {isLoading ? (
@@ -233,8 +263,8 @@ const Signup = () => {
               {/* Login Link */}
               <p className="text-center text-gray-600 mt-8">
                 Already have an account?{" "}
-                <Link 
-                  to="/login" 
+                <Link
+                  to="/login"
                   className="font-bold text-green-600 hover:text-green-700 hover:underline"
                 >
                   Sign in here
@@ -243,7 +273,7 @@ const Signup = () => {
             </motion.div>
 
             {/* Right side - Benefits */}
-            <motion.div 
+            <motion.div
               className="hidden md:block md:w-1/3 bg-gradient-to-br from-green-600 to-green-800 p-8"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -253,25 +283,25 @@ const Signup = () => {
                 <h2 className="text-2xl font-bold mb-6">Benefits of Joining</h2>
                 <div className="space-y-6">
                   {[
-                    { 
-                      title: "Welcome Bonus", 
-                      desc: "Get 20% off your first order", 
-                      icon: "🎁"
+                    {
+                      title: "Welcome Bonus",
+                      desc: "Get 20% off your first order",
+                      icon: "🎁",
                     },
-                    { 
-                      title: "Priority Support", 
-                      desc: "24/7 customer care", 
-                      icon: "🌟"
+                    {
+                      title: "Priority Support",
+                      desc: "24/7 customer care",
+                      icon: "🌟",
                     },
-                    { 
-                      title: "Flexible Plans", 
-                      desc: "Pause or cancel anytime", 
-                      icon: "⚡"
+                    {
+                      title: "Flexible Plans",
+                      desc: "Pause or cancel anytime",
+                      icon: "⚡",
                     },
-                    { 
-                      title: "Exclusive Access", 
-                      desc: "Early access to new dishes", 
-                      icon: "🔑"
+                    {
+                      title: "Exclusive Access",
+                      desc: "Early access to new dishes",
+                      icon: "🔑",
                     },
                   ].map((benefit, index) => (
                     <div key={index} className="flex items-start gap-3">
@@ -279,18 +309,23 @@ const Signup = () => {
                         <span className="text-lg">{benefit.icon}</span>
                       </div>
                       <div>
-                        <h3 className="font-semibold text-yellow-300">{benefit.title}</h3>
+                        <h3 className="font-semibold text-yellow-300">
+                          {benefit.title}
+                        </h3>
                         <p className="text-green-100 text-sm">{benefit.desc}</p>
                       </div>
                     </div>
                   ))}
                 </div>
-                
+
                 <div className="mt-8 bg-white/10 rounded-xl p-4">
                   <p className="text-green-100 text-sm italic">
-                    "Joining DailyDish was the best decision for my busy lifestyle!"
+                    "Joining DailyDish was the best decision for my busy
+                    lifestyle!"
                   </p>
-                  <p className="text-yellow-300 text-sm mt-2 font-semibold">- Michael T.</p>
+                  <p className="text-yellow-300 text-sm mt-2 font-semibold">
+                    - Michael T.
+                  </p>
                 </div>
               </div>
             </motion.div>
