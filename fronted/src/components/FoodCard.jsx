@@ -8,6 +8,7 @@ import { getCart } from "../helper";
 import toast from "react-hot-toast";
 import { motion } from "framer-motion";
 import { API_URL } from "../config";
+axios.defaults.withCredentials = true;
 
 const FoodCard = ({
   id,
