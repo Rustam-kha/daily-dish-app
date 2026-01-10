@@ -72,9 +72,10 @@ export const login = async (req, res) => {
     );
 
     res.cookie("token", token, {
-      httpOnly: true,
-      sameSite: "lax", // best for localhost
-    });
+  httpOnly: true,
+  secure: true,      
+  sameSite: "none"     
+});
 
    
     return res.status(200).json({
