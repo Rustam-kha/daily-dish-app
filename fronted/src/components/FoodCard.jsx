@@ -129,7 +129,7 @@ const FoodCard = ({
           onClick={addToCart}
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.96 }}
-          className="w-full py-2.5 rounded-xl bg-green-600 text-white font-semibold flex items-center justify-center gap-2 hover:bg-green-700 transition"
+          className="w-full py-2.5 rounded-xl bg-green-600 text-white font-semibold flex items-center justify-center gap-2 hover:bg-green-700 transition cursor-pointer"
         >
           <FiShoppingCart className="text-lg" />
           Add to Cart
