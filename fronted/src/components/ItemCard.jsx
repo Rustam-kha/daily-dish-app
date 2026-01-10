@@ -12,6 +12,8 @@ import { getCart } from "../helper";
 import { setCart } from "../redux/slices/CartSlice";
 import { motion } from "framer-motion";
 import { API_URL } from "../config";
+axios.defaults.withCredentials = true;
+
 function ItemCard({ name, image, price, quantity, _id, category }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
