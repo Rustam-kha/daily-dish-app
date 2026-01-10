@@ -101,7 +101,7 @@ const Cart = ({ showCart, setShowCart }) => {
                       }}
                       className="px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 
                         text-white font-medium rounded-lg hover:from-green-600 hover:to-green-700 
-                        transition-all duration-300 shadow-md hover:shadow-lg"
+                        transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer"
                     >
                       Browse Menu
                     </button>
@@ -154,7 +154,7 @@ const Cart = ({ showCart, setShowCart }) => {
                       hover:from-green-700 hover:to-green-800
                       shadow-lg hover:shadow-xl
                       transition-all duration-300 transform hover:scale-[1.02]
-                      disabled:opacity-50 disabled:cursor-not-allowed"
+                      disabled:opacity-50 "
                   >
                     Proceed to Checkout
                   </button>
