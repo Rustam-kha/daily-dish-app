@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import Store from './redux/Store.js'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+axios.defaults.withCredentials = true;
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
