@@ -12,16 +12,20 @@ const port = 5000;
 
 connectDb();
 
-app.use(
-  cors({
-   origin: [
-    "http://localhost:5173",                 
-    "https://daily-dish-app.vercel.app"     
-  ],
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-  })
-);
+// app.use(
+//   cors({
+//    origin: [
+//     "http://localhost:5173",                 
+//     "https://daily-dish-app.vercel.app"     
+//   ],
+//     credentials: true,
+//     methods: ["GET", "POST", "PUT", "DELETE"],
+//   })
+// );
+app.use(cors({
+  origin: "https://daily-dish-app.vercel.app",
+  credentials: true
+}));
 
 app.use(express.json());
 app.use(cookieParser());
