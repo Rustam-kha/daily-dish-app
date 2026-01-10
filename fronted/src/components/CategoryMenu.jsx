@@ -47,7 +47,7 @@ const CategoryMenu = () => {
               className={`group relative p-4 md:p-5 rounded-xl transition-all duration-300 flex flex-col items-center justify-center gap-2 ${
                 selectedCategory === category
                   ? "bg-gradient-to-br from-green-600 to-green-700 text-white shadow-xl shadow-green-200"
-                  : "bg-white text-gray-700 hover:bg-green-50 hover:shadow-lg border border-gray-100"
+                  : "bg-white text-gray-700 hover:bg-green-50 hover:shadow-lg border border-gray-100 cursor-pointer"
               }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -83,7 +83,7 @@ const CategoryMenu = () => {
               )}
 
               {selectedCategory !== category && (
-                <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
                   <FiChevronRight className="text-green-600" />
                 </div>
               )}
