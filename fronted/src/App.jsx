@@ -17,11 +17,11 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* <Route path="/success" element={ <Success />} /> */}
-        <Route
+        <Route path="/success" element={ <Success />} />
+        {/* <Route
           path="/success"
           element={<ProtectedRoute element={<Success />} />}
-        />
+        /> */}
         <Route path="/*" element={<Error />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
