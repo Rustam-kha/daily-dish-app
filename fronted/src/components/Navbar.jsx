@@ -232,14 +232,14 @@ const Navbar = () => {
                   <Link
                     to="/login"
                     onClick={() => setMenuOpen(false)}
-                    className="block py-3 px-4 hover:bg-green-50 rounded-lg transition-colors font-medium"
+                    className="block py-3 px-4 hover:bg-green-50 rounded-lg transition-colors font-medium cursor-pointer"
                   >
                     Login
                   </Link>
                   <Link
                     to="/signup"
                     onClick={() => setMenuOpen(false)}
-                    className="block py-3 px-4 bg-green-600 text-white text-center rounded-lg hover:bg-green-700 transition-colors font-medium mt-2"
+                    className="block py-3 px-4 bg-green-600 text-white text-center rounded-lg hover:bg-green-700 transition-colors font-medium mt-2 cursor-pointer"
                   >
                     Sign Up
                   </Link>
