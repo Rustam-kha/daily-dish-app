@@ -195,8 +195,11 @@ export const checkout = async (req, res) => {
         },
         quantity: item.quantity,
       })),
-      success_url: "http://localhost:5173/success",
-      cancel_url: "http://localhost:5173/cancel",
+      // success_url: "http://localhost:5173/success",
+      // cancel_url: "http://localhost:5173/cancel",
+      success_url: "https://daily-dish-app.vercel.app/success",
+      cancel_url: "https://daily-dish-app.vercel.app/cancel",
+
     });
 
     return res.json({ url: session.url });
