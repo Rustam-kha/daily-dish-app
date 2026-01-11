@@ -71,7 +71,7 @@ const Cart = ({ showCart, setShowCart }) => {
                   <button
                     onClick={() => setShowCart(false)}
                     className="w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 
-                      flex items-center justify-center transition-colors"
+                      flex items-center justify-center transition-colors "
                   >
                     <IoMdClose className="text-xl" />
                   </button>
@@ -170,7 +170,7 @@ const Cart = ({ showCart, setShowCart }) => {
           whileTap={{ scale: 0.95 }}
           onClick={() => setShowCart(true)}
           className={`fixed bottom-6 right-6 z-30 w-16 h-16 rounded-full
-            flex items-center justify-center shadow-2xl transition-all duration-300
+            flex items-center justify-center shadow-2xl transition-all duration-300 z-50
             ${
               totalQty > 0
                 ? "bg-gradient-to-r from-green-600 to-green-700"
