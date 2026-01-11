@@ -51,7 +51,7 @@ const Error = () => {
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <button
               onClick={() => window.location.reload()}
-              className="inline-flex items-center justify-center px-6 py-3 bg-white text-gray-800 font-semibold rounded-lg border-2 border-gray-300 shadow hover:bg-gray-50 transition-all duration-300 gap-2"
+              className="inline-flex items-center justify-center cursor-pointer px-6 py-3 bg-white text-gray-800 font-semibold rounded-lg border-2 border-gray-300 shadow hover:bg-gray-50 transition-all duration-300 gap-2"
             >
               <FiRefreshCw />
               Refresh Page
