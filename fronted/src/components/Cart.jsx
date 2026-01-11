@@ -20,9 +20,7 @@ const Cart = ({ showCart, setShowCart }) => {
     0
   );
 
-  const deliveryCharge = totalPrice > 500 ? 0 : 100;
-  const tax = totalPrice * 0.05;
-  const grandTotal = totalPrice + deliveryCharge + tax;
+
 
   const checkout = async () => {
     try {
@@ -120,28 +118,11 @@ const Cart = ({ showCart, setShowCart }) => {
                       <span>Subtotal</span>
                       <span>Rs. {totalPrice.toFixed(2)}</span>
                     </div>
-                    <div className="flex justify-between text-gray-600">
-                      <span>Delivery</span>
-                      <span
-                        className={
-                          deliveryCharge === 0
-                            ? "text-green-600 font-semibold"
-                            : ""
-                        }
-                      >
-                        {deliveryCharge === 0
-                          ? "FREE"
-                          : `Rs. ${deliveryCharge.toFixed(2)}`}
-                      </span>
-                    </div>
-                    <div className="flex justify-between text-gray-600">
-                      <span>Tax (5%)</span>
-                      <span>Rs. {tax.toFixed(2)}</span>
-                    </div>
+                  
                     <div className="border-t border-gray-200 pt-3">
                       <div className="flex justify-between font-bold text-lg text-gray-900">
                         <span>Total</span>
-                        <span>Rs. {grandTotal.toFixed(2)}</span>
+                        <span>Rs. {totalPrice.toFixed(2)}</span>
                       </div>
                     </div>
                   </div>
