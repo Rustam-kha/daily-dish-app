@@ -98,14 +98,14 @@ const Home = () => {
           onClick={() =>
             setActiveSlide((p) => (p - 1 + slides.length) % slides.length)
           }
-          className="absolute left-4 top-1/2 z-20 bg-black/40 text-white p-3 rounded-full cursor-pointer"
+          className="absolute left-4 top-1/2 z-20 bg-black/40 text-white p-3 rounded-full cursor-pointer z-50"
         >
           <ChevronLeft />
         </button>
 
         <button
           onClick={() => setActiveSlide((p) => (p + 1) % slides.length)}
-          className="absolute right-4 top-1/2 z-20 bg-black/40 text-white p-3 rounded-full cursor-pointer"
+          className="absolute right-4 top-1/2 z-20 bg-black/40 text-white p-3 rounded-full cursor-pointer z-50"
         >
           <ChevronRight />
         </button>
@@ -129,7 +129,7 @@ const Home = () => {
 
               <button
                 onClick={() => navigate("/contact")}
-                className="px-8 py-3 bg-white/20 border border-white rounded-lg font-bold hover:bg-white/30 flex items-center gap-2"
+                className="px-8 py-3 bg-white/20 border border-white rounded-lg font-bold hover:bg-white/30 flex items-center gap-2 cursor-pointer"
               >
                 <MdDeliveryDining />
                 Contact Us
