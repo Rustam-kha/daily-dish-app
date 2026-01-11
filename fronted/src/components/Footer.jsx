@@ -62,7 +62,7 @@ const Footer = () => {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 50 }}
-            className="fixed bottom-6 right-25 bg-green-600 text-white p-4 rounded-full shadow-xl z-50 hover:bg-green-700 transition-colors"
+            className="fixed bottom-6 right-25 bg-green-600 text-white p-4 rounded-full shadow-xl z-50 hover:bg-green-700 transition-colors cursor-pointer"
             title="Scroll to top"
           >
             <ArrowUp className="w-6 h-6" />
