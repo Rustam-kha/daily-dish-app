@@ -211,26 +211,7 @@ const Signup = () => {
                   </div>
                 </div>
 
-                {/* Terms Agreement */}
-                <div className="flex items-start gap-3">
-                  <input
-                    type="checkbox"
-                    id="terms"
-                    required
-                    className="mt-1 w-4 h-4 rounded border-gray-300 text-green-600 focus:ring-green-500"
-                  />
-                  <label htmlFor="terms" className="text-sm text-gray-600">
-                    I agree to the{" "}
-                    <button className="text-green-600 hover:underline">
-                      Terms of Service
-                    </button>{" "}
-                    and{" "}
-                    <button className="text-green-600 hover:underline">
-                      Privacy Policy
-                    </button>
-                  </label>
-                </div>
-
+               
                 {/* Submit Button */}
                 <motion.button
                   type="submit"
