@@ -34,7 +34,7 @@ function ItemCard({ name, image, price, quantity, _id, category }) {
 
   const incrementQuantity = async () => {
     await axios.put(
-      `http://localhost:5000/api/increment-quantity/${_id}`,
+      `${API_URL}/api/increment-quantity/${_id}`,
       {},
       { withCredentials: true }
     );
@@ -44,7 +44,7 @@ function ItemCard({ name, image, price, quantity, _id, category }) {
   const decrementQuantity = async () => {
     if (quantity <= 1) return;
     await axios.put(
-      `http://localhost:5000/api/decrement-quantity/${_id}`,
+      `${API_URL}/api/decrement-quantity/${_id}`,
       {},
       { withCredentials: true }
     );
