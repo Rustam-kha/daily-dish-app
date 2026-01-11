@@ -127,7 +127,7 @@ function ItemCard({ name, image, price, quantity, _id, category }) {
                 className="w-8 h-8 rounded-lg
                            bg-gray-100 hover:bg-gray-200
                            disabled:opacity-40
-                           flex items-center justify-center"
+                           flex items-center justify-center cursor-pointer"
               >
                 <Minus size={16} />
               </button>
