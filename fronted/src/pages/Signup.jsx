@@ -65,12 +65,7 @@ const Signup = () => {
             </div>
             <span className="text-3xl font-bold text-green-800">DailyDish</span>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900">
-            Join Our Community
-          </h1>
-          <p className="text-gray-600 mt-2">
-            Start your delicious journey with us
-          </p>
+          
         </motion.div>
 
         <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
